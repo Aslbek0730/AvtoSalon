@@ -1,15 +1,16 @@
 from flask import Blueprint, request, jsonify, session
-from models import Order, Car, User, db
+from models import db, Order, Car, User
+from routes.auth_routes import login_required
 
-bp = Blueprint('orders', __name__, url_prefix='/api/orders')
+order_bp = Blueprint('order', __name__)
 
-@bp.route('/', methods=['GET'])
+@order_bp.route('/', methods=['GET'])
+@login_required
 def get_orders():
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
         
     user = User.query.get(session['user_id'])
-    
     if user.is_admin:
         orders = Order.query.all()
     else:
@@ -17,29 +18,28 @@ def get_orders():
     
     return jsonify([{
         'id': order.id,
-        'user': {
-            'id': order.user.id,
-            'username': order.user.username
-        },
+        'user_id': order.user_id,
+        'car_id': order.car_id,
+        'status': order.status,
+        'created_at': order.created_at.isoformat(),
+        'updated_at': order.updated_at.isoformat(),
         'car': {
             'id': order.car.id,
             'name': order.car.name,
             'brand': order.car.brand,
-            'model': order.car.model
-        },
-        'order_date': order.order_date.isoformat(),
-        'status': order.status,
-        'total_amount': order.total_amount,
-        'payment_status': order.payment_status
+            'model': order.car.model,
+            'price': order.car.price,
+            'image_url': order.car.image_url
+        } if order.car else None
     } for order in orders])
 
-@bp.route('/<int:order_id>', methods=['GET'])
+@order_bp.route('/<int:order_id>', methods=['GET'])
+@login_required
 def get_order(order_id):
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
         
     user = User.query.get(session['user_id'])
-    
     order = Order.query.get_or_404(order_id)
     
     if not user.is_admin and order.user_id != session['user_id']:
@@ -47,29 +47,28 @@ def get_order(order_id):
     
     return jsonify({
         'id': order.id,
-        'user': {
-            'id': order.user.id,
-            'username': order.user.username
-        },
+        'user_id': order.user_id,
+        'car_id': order.car_id,
+        'status': order.status,
+        'created_at': order.created_at.isoformat(),
+        'updated_at': order.updated_at.isoformat(),
         'car': {
             'id': order.car.id,
             'name': order.car.name,
             'brand': order.car.brand,
-            'model': order.car.model
-        },
-        'order_date': order.order_date.isoformat(),
-        'status': order.status,
-        'total_amount': order.total_amount,
-        'payment_status': order.payment_status
+            'model': order.car.model,
+            'price': order.car.price,
+            'image_url': order.car.image_url
+        } if order.car else None
     })
 
-@bp.route('/', methods=['POST'])
+@order_bp.route('/', methods=['POST'])
+@login_required
 def create_order():
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
-        
-    data = request.get_json()
     
+    data = request.get_json()
     car = Car.query.get_or_404(data['car_id'])
     
     if not car.is_available:
@@ -77,32 +76,64 @@ def create_order():
     
     order = Order(
         user_id=session['user_id'],
-        car_id=data['car_id'],
-        total_amount=car.price
+        car_id=car.id,
+        status='pending'
     )
     
-    car.is_available = False
     db.session.add(order)
     db.session.commit()
     
-    return jsonify({'message': 'Order created successfully', 'id': order.id}), 201
+    return jsonify({
+        'message': 'Order created successfully',
+        'order': {
+            'id': order.id,
+            'user_id': order.user_id,
+            'car_id': order.car_id,
+            'status': order.status,
+            'created_at': order.created_at.isoformat()
+        }
+    }), 201
 
-@bp.route('/<int:order_id>/status', methods=['PUT'])
-def update_order_status(order_id):
+@order_bp.route('/<int:order_id>', methods=['PUT'])
+@login_required
+def update_order(order_id):
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
         
     user = User.query.get(session['user_id'])
+    order = Order.query.get_or_404(order_id)
     
-    if not user.is_admin:
+    if not user.is_admin and order.user_id != session['user_id']:
         return jsonify({'error': 'Unauthorized'}), 403
     
-    order = Order.query.get_or_404(order_id)
     data = request.get_json()
-    
-    order.status = data['status']
-    if data['status'] == 'rejected':
-        order.car.is_available = True
+    if 'status' in data:
+        if user.is_admin:
+            order.status = data['status']
+        elif data['status'] == 'cancelled' and order.status == 'pending':
+            order.status = 'cancelled'
+        else:
+            return jsonify({'error': 'Cannot update status'}), 403
     
     db.session.commit()
-    return jsonify({'message': 'Order status updated successfully'})
+    return jsonify({'message': 'Order updated successfully'})
+
+@order_bp.route('/<int:order_id>', methods=['DELETE'])
+@login_required
+def delete_order(order_id):
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+        
+    user = User.query.get(session['user_id'])
+    order = Order.query.get_or_404(order_id)
+    
+    if not user.is_admin and order.user_id != session['user_id']:
+        return jsonify({'error': 'Unauthorized'}), 403
+    
+    if order.status != 'pending':
+        return jsonify({'error': 'Cannot delete non-pending order'}), 400
+    
+    db.session.delete(order)
+    db.session.commit()
+    
+    return jsonify({'message': 'Order deleted successfully'})

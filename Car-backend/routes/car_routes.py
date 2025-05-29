@@ -1,11 +1,15 @@
-from flask import Blueprint, request, jsonify, session
-from models import Car, db
+from flask import Blueprint, request, jsonify, session, current_app
+from models import Car, db, User
 from werkzeug.utils import secure_filename
 import os
+from routes.auth_routes import login_required
 
-bp = Blueprint('cars', __name__, url_prefix='/api/cars')
+car_bp = Blueprint('car', __name__)
 
-@bp.route('/', methods=['GET'])
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
+
+@car_bp.route('/', methods=['GET'])
 def get_cars():
     cars = Car.query.all()
     return jsonify([{
@@ -20,7 +24,7 @@ def get_cars():
         'is_available': car.is_available
     } for car in cars])
 
-@bp.route('/<int:car_id>', methods=['GET'])
+@car_bp.route('/<int:car_id>', methods=['GET'])
 def get_car(car_id):
     car = Car.query.get_or_404(car_id)
     return jsonify({
@@ -35,7 +39,8 @@ def get_car(car_id):
         'is_available': car.is_available
     })
 
-@bp.route('/', methods=['POST'])
+@car_bp.route('/', methods=['POST'])
+@login_required
 def create_car():
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
@@ -47,10 +52,9 @@ def create_car():
     data = request.form
     image = request.files.get('image')
     
-    if image:
+    if image and allowed_file(image.filename):
         filename = secure_filename(image.filename)
-        image_path = os.path.join('uploads', filename)
-        image.save(image_path)
+        image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
         image_url = f'/uploads/{filename}'
     else:
         image_url = None
@@ -71,7 +75,8 @@ def create_car():
     
     return jsonify({'message': 'Car created successfully', 'id': car.id}), 201
 
-@bp.route('/<int:car_id>', methods=['PUT'])
+@car_bp.route('/<int:car_id>', methods=['PUT'])
+@login_required
 def update_car(car_id):
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401
@@ -84,10 +89,9 @@ def update_car(car_id):
     data = request.form
     image = request.files.get('image')
     
-    if image:
+    if image and allowed_file(image.filename):
         filename = secure_filename(image.filename)
-        image_path = os.path.join('uploads', filename)
-        image.save(image_path)
+        image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
         car.image_url = f'/uploads/{filename}'
     
     car.name = data.get('name', car.name)
@@ -101,7 +105,8 @@ def update_car(car_id):
     db.session.commit()
     return jsonify({'message': 'Car updated successfully'})
 
-@bp.route('/<int:car_id>', methods=['DELETE'])
+@car_bp.route('/<int:car_id>', methods=['DELETE'])
+@login_required
 def delete_car(car_id):
     if 'user_id' not in session:
         return jsonify({'error': 'Unauthorized'}), 401

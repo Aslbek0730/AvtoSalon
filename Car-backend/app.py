@@ -1,37 +1,47 @@
-from flask import Flask
+from flask import Flask, current_app
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from flask_cors import CORS
-from models import db
-from routes import car_routes, user_routes, order_routes
+from config import Config
 import os
 
-def create_app():
-    app = Flask(__name__)
-    
-    # Configure app
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev')
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:qwe123@localhost:5432/car_salon'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['UPLOAD_FOLDER'] = 'uploads'
-    
-    # Create uploads directory if it doesn't exist
-    if not os.path.exists(app.config['UPLOAD_FOLDER']):
-        os.makedirs(app.config['UPLOAD_FOLDER'])
-    
-    # Initialize extensions
-    CORS(app)
-    db.init_app(app)
-    
-    # Register blueprints
-    app.register_blueprint(car_routes.bp)
-    app.register_blueprint(user_routes.bp)
-    app.register_blueprint(order_routes.bp)
-    
-    # Create database tables
-    with app.app_context():
-        db.create_all()
-    
-    return app
+app = Flask(__name__)
+app.config.from_object(Config)
+
+# Initialize extensions
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
+
+# Create uploads directory if it doesn't exist
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
+
+# Import models
+from models import User, Car, CarImage, Order, Installment, Payment
+
+# Register blueprints
+from routes.auth_routes import auth_bp
+from routes.car_routes import car_bp
+from routes.order_routes import order_bp
+from routes.admin_routes import admin_bp
+
+app.register_blueprint(auth_bp, url_prefix='/api/auth')
+app.register_blueprint(car_bp, url_prefix='/api/cars')
+app.register_blueprint(order_bp, url_prefix='/api/orders')
+app.register_blueprint(admin_bp, url_prefix='/api/admin')
+
+@app.route('/')
+def index():
+    return {'message': 'Welcome to Car Salon API'}
+
+@app.errorhandler(404)
+def not_found(error):
+    return {'error': 'Not found'}, 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return {'error': 'Internal server error'}, 500
 
 if __name__ == '__main__':
-    app = create_app()
     app.run(debug=True)

@@ -1,48 +1,89 @@
-from flask import Blueprint, request, jsonify, session
-from models import User, db
+from flask import Blueprint, request, jsonify, make_response
+from werkzeug.security import generate_password_hash, check_password_hash
+from models import db, User
+from functools import wraps
 
-bp = Blueprint('auth', __name__, url_prefix='/api/auth')
+auth_bp = Blueprint('auth', __name__)
 
-@bp.route('/register', methods=['POST'])
+def login_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        user_id = request.cookies.get('user_id')
+        if not user_id:
+            return jsonify({'message': 'Login required'}), 401
+        return f(*args, **kwargs)
+    return decorated
+
+@auth_bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
     
-    if User.query.filter_by(username=data['username']).first():
-        return jsonify({'error': 'Username already exists'}), 400
-        
     if User.query.filter_by(email=data['email']).first():
-        return jsonify({'error': 'Email already exists'}), 400
-    
-    user = User(
+        return jsonify({'message': 'Email already exists'}), 400
+        
+    hashed_password = generate_password_hash(data['password'])
+    new_user = User(
         username=data['username'],
-        email=data['email']
+        email=data['email'],
+        password=hashed_password,
+        role='user'
     )
-    user.set_password(data['password'])
     
-    db.session.add(user)
+    db.session.add(new_user)
     db.session.commit()
     
-    return jsonify({'message': 'User registered successfully'}), 201
+    response = make_response(jsonify({
+        'message': 'User registered successfully',
+        'user': {
+            'id': new_user.id,
+            'username': new_user.username,
+            'email': new_user.email,
+            'role': new_user.role
+        }
+    }))
+    
+    response.set_cookie('user_id', str(new_user.id), httponly=True)
+    return response, 201
 
-@bp.route('/login', methods=['POST'])
+@auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    user = User.query.filter_by(username=data['username']).first()
+    user = User.query.filter_by(email=data['email']).first()
     
-    if not user or not user.check_password(data['password']):
-        return jsonify({'error': 'Invalid username or password'}), 401
+    if not user or not check_password_hash(user.password, data['password']):
+        return jsonify({'message': 'Invalid email or password'}), 401
     
-    session['user_id'] = user.id
-    return jsonify({
+    response = make_response(jsonify({
+        'message': 'Login successful',
         'user': {
             'id': user.id,
             'username': user.username,
             'email': user.email,
-            'is_admin': user.is_admin
+            'role': user.role
         }
-    })
+    }))
+    
+    response.set_cookie('user_id', str(user.id), httponly=True)
+    return response
 
-@bp.route('/logout', methods=['POST'])
+@auth_bp.route('/logout', methods=['POST'])
 def logout():
-    session.pop('user_id', None)
-    return jsonify({'message': 'Logged out successfully'}) 
+    response = make_response(jsonify({'message': 'Logout successful'}))
+    response.delete_cookie('user_id')
+    return response
+
+@auth_bp.route('/me', methods=['GET'])
+@login_required
+def get_current_user():
+    user_id = request.cookies.get('user_id')
+    user = User.query.get(user_id)
+    
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+        
+    return jsonify({
+        'id': user.id,
+        'username': user.username,
+        'email': user.email,
+        'role': user.role
+    }) 
