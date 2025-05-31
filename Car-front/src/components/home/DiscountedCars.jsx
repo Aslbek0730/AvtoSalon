@@ -81,12 +81,12 @@ const DiscountedCars = () => {
     <section className="section bg-white">
       <div className="container-custom">
         <div className="flex justify-between items-center mb-12">
-          <h2 className="text-3xl font-bold">Special Offers</h2>
+          <h2 className="text-3xl font-bold">Maxsus takliflar</h2>
           <Link 
             to="/cars" 
             className="flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-200"
           >
-            <span className="mr-1">View all cars</span>
+            <span className="mr-1">Barcha mashinalar</span>
             <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
@@ -128,7 +128,7 @@ const DiscountedCars = () => {
                     {car.isInstallmentAvailable && (
                       <div className="mt-1 flex items-center text-xs text-gray-500">
                         <Clock className="h-3 w-3 mr-1" />
-                        <span>Installment Available</span>
+                        <span>Bo'lib to'lash mumkin</span>
                       </div>
                     )}
                   </div>
@@ -137,7 +137,7 @@ const DiscountedCars = () => {
                     to={`/cars/${car.id}`} 
                     className="btn-outline text-sm py-2 w-full flex justify-center"
                   >
-                    More Details
+                    Tafsilotlar
                   </Link>
                 </div>
               </div>

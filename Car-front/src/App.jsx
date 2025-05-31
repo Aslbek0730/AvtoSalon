@@ -27,7 +27,7 @@ import { AuthProvider } from './context/AuthContext';
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -35,8 +35,8 @@ function App() {
         >
           <Routes>
             {/* Public routes */}
-            <Route path="/" element={<MainLayout />}>
-              <Route index element={<HomePage />} />
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<HomePage />} />
               <Route path="cars" element={<CarsPage />} />
               <Route path="cars/:id" element={<CarDetailsPage />} />
               <Route path="order" element={<OrderPage />} />
@@ -47,17 +47,17 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             
             {/* Protected user routes */}
-            <Route path="/profile" element={<MainLayout />}>
-              <Route index element={<ProfilePage />} />
+            <Route element={<MainLayout />}>
+              <Route path="/profile" element={<ProfilePage />} />
             </Route>
             
             {/* Admin routes */}
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="cars" element={<AdminCars />} />
-              <Route path="orders" element={<AdminOrders />} />
-              <Route path="payments" element={<AdminPayments />} />
-              <Route path="users" element={<AdminUsers />} />
+            <Route element={<AdminLayout />}>
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/cars" element={<AdminCars />} />
+              <Route path="/admin/orders" element={<AdminOrders />} />
+              <Route path="/admin/payments" element={<AdminPayments />} />
+              <Route path="/admin/users" element={<AdminUsers />} />
             </Route>
             
             {/* 404 route */}

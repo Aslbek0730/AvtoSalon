@@ -12,7 +12,7 @@ const DUMMY_CARS = [
     color: 'Black',
     condition: 'New',
     mileage: 0,
-    description: 'Experience unparalleled luxury with the all-new Mercedes-Benz S-Class. This flagship sedan combines cutting-edge technology with elegant design for the ultimate driving experience.',
+    description: 'Butunlay yangi Mercedes-Benz S-Class bilan misli ko\'rilmagan hashamatni his eting. Ushbu flagman sedani eng yaxshi haydash tajribasi uchun ilg\'or texnologiyalarni nafis dizayn bilan birlashtiradi.',
     installmentDetails: {
       minMonths: 12,
       maxMonths: 60,
@@ -50,7 +50,7 @@ const DUMMY_CARS = [
     color: 'Silver',
     condition: 'New',
     mileage: 0,
-    description: 'The Audi A8 is a luxury sedan that combines elegant design with cutting-edge technology. Experience unparalleled comfort and performance in this flagship Audi model.',
+    description: 'Audi A8 - nafis dizaynni ilg\'or texnologiyalar bilan birlashtirgan hashamatli sedan. Ushbu flagman Audi modelida misli ko\'rilmagan qulaylik va unumdorlikni his eting.',
     installmentDetails: {
       minMonths: 12,
       maxMonths: 60,
@@ -130,7 +130,7 @@ const DUMMY_CARS = [
     color: 'Black',
     condition: 'New',
     mileage: 0,
-    description: 'The Nissan Altima offers a premium driving experience at an affordable price. With its comfortable interior, fuel-efficient engine, and advanced safety features, it is perfect for everyday driving.',
+    description: 'Nissan Altima hamyonbop narxda yuqori darajadagi haydash tajribasini taklif etadi. O\'zining qulay ichki qismi, yoqilg\'i tejamkor dvigateli va ilg\'or xavfsizlik xususiyatlari bilan u kundalik haydash uchun juda mos keladi.',
     installmentDetails: null,
   },
   {

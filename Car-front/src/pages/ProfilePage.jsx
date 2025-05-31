@@ -83,7 +83,7 @@ const ProfilePage = () => {
       method: 'Uzum',
       orderId: '2',
       carName: 'Toyota Camry',
-      type: 'Full Payment',
+      type: 'To\'liq to\'lov',
     },
   ];
 

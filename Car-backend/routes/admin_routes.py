@@ -19,7 +19,7 @@ def admin_required(f):
     decorated.__name__ = f.__name__
     return decorated
 
-# Dashboard statistics
+# Dashboard statistikasi
 @admin_bp.route('/dashboard', methods=['GET'])
 @admin_required
 def get_dashboard():
@@ -35,7 +35,7 @@ def get_dashboard():
         'pending_orders': pending_orders
     })
 
-# User management
+# Foydalanuvchi boshqarish
 @admin_bp.route('/users', methods=['GET'])
 @admin_required
 def get_users():
@@ -71,7 +71,7 @@ def delete_user(user_id):
     db.session.commit()
     return jsonify({'message': 'User deleted successfully'})
 
-# Car management
+# Mashina boshqarish
 @admin_bp.route('/cars', methods=['GET'])
 @admin_required
 def get_all_cars():
@@ -148,7 +148,7 @@ def delete_car(car_id):
     db.session.commit()
     return jsonify({'message': 'Car deleted successfully'})
 
-# Order management
+# Buyurtma boshqarish
 @admin_bp.route('/orders', methods=['GET'])
 @admin_required
 def get_orders():
@@ -188,7 +188,7 @@ def update_order(order_id):
     db.session.commit()
     return jsonify({'message': 'Order updated successfully'})
 
-# Reports
+# Hisobotlar
 @admin_bp.route('/reports/sales', methods=['GET'])
 @admin_required
 def get_sales_report():

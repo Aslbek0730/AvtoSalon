@@ -85,13 +85,13 @@ const CarDetailsPage = () => {
       <div className="pt-20 pb-16 min-h-screen">
         <div className="container-custom">
           <div className="bg-white rounded-xl shadow-md p-8 text-center">
-            <h2 className="text-2xl font-bold mb-4">Car Not Found</h2>
-            <p className="mb-6">The car you're looking for doesn't exist or has been removed.</p>
+            <h2 className="text-2xl font-bold mb-4">Mashina topilmadi</h2>
+            <p className="mb-6">Siz izlayotgan mashina topilmadi yoki o'chirilgan.</p>
             <button 
               onClick={() => navigate('/cars')}
               className="btn-primary"
             >
-              Back to Cars
+              Mashinalarga qaytish
             </button>
           </div>
         </div>
@@ -109,11 +109,11 @@ const CarDetailsPage = () => {
           <nav className="flex" aria-label="Breadcrumb">
             <ol className="flex items-center space-x-2">
               <li>
-                <a href="/" className="text-gray-500 hover:text-blue-600">Home</a>
+                <a href="/" className="text-gray-500 hover:text-blue-600">Bosh sahifa</a>
               </li>
               <li className="flex items-center">
                 <span className="text-gray-400 mx-2">/</span>
-                <a href="/cars" className="text-gray-500 hover:text-blue-600">Cars</a>
+                <a href="/cars" className="text-gray-500 hover:text-blue-600">Mashinalar</a>
               </li>
               <li className="flex items-center">
                 <span className="text-gray-400 mx-2">/</span>
@@ -188,7 +188,7 @@ const CarDetailsPage = () => {
                 <div className="flex items-center">
                   <Calendar className="h-5 w-5 text-blue-500 mr-2" />
                   <div>
-                    <div className="text-sm text-gray-600">Year</div>
+                    <div className="text-sm text-gray-600">Yil</div>
                     <div className="font-medium">{car.year}</div>
                   </div>
                 </div>
@@ -197,7 +197,7 @@ const CarDetailsPage = () => {
                   <div className="flex items-center">
                     <Gauge className="h-5 w-5 text-blue-500 mr-2" />
                     <div>
-                      <div className="text-sm text-gray-600">Engine</div>
+                      <div className="text-sm text-gray-600">Motor</div>
                       <div className="font-medium">{car.engine}</div>
                     </div>
                   </div>
@@ -207,7 +207,7 @@ const CarDetailsPage = () => {
                   <div className="flex items-center">
                     <Truck className="h-5 w-5 text-blue-500 mr-2" />
                     <div>
-                      <div className="text-sm text-gray-600">Mileage</div>
+                      <div className="text-sm text-gray-600">Masofa</div>
                       <div className="font-medium">{car.mileage.toLocaleString()} km</div>
                     </div>
                   </div>
@@ -217,7 +217,7 @@ const CarDetailsPage = () => {
                   <div className="flex items-center">
                     <Droplet className="h-5 w-5 text-blue-500 mr-2" />
                     <div>
-                      <div className="text-sm text-gray-600">Color</div>
+                      <div className="text-sm text-gray-600">Rang</div>
                       <div className="font-medium">{car.color}</div>
                     </div>
                   </div>
@@ -227,7 +227,7 @@ const CarDetailsPage = () => {
                   <div className="flex items-center">
                     <Info className="h-5 w-5 text-blue-500 mr-2" />
                     <div>
-                      <div className="text-sm text-gray-600">Condition</div>
+                      <div className="text-sm text-gray-600">Holati</div>
                       <div className="font-medium">{car.condition}</div>
                     </div>
                   </div>
@@ -237,8 +237,8 @@ const CarDetailsPage = () => {
                   <div className="flex items-center">
                     <Clock className="h-5 w-5 text-blue-500 mr-2" />
                     <div>
-                      <div className="text-sm text-gray-600">Installment</div>
-                      <div className="font-medium text-green-600">Available</div>
+                      <div className="text-sm text-gray-600">Bo'lib to'lash</div>
+                      <div className="font-medium text-green-600">Mavjud</div>
                     </div>
                   </div>
                 )}
@@ -247,7 +247,7 @@ const CarDetailsPage = () => {
               {/* Description */}
               {car.description && (
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-2">Description</h3>
+                  <h3 className="text-lg font-semibold mb-2">Tavsif</h3>
                   <p className="text-gray-600">{car.description}</p>
                 </div>
               )}
@@ -260,7 +260,7 @@ const CarDetailsPage = () => {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Down Payment
+                        To'lov miqdori
                       </label>
                       <div className="flex items-center">
                         <span className="text-gray-500 mr-2">$</span>
@@ -277,7 +277,7 @@ const CarDetailsPage = () => {
                     
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Loan Term (Months)
+                        Kredit muddati (Oy)
                       </label>
                       <select
                         value={selectedMonths}
@@ -294,19 +294,19 @@ const CarDetailsPage = () => {
                     
                     <div className="bg-gray-50 p-4 rounded-lg">
                       <div className="flex justify-between mb-2">
-                        <span className="text-gray-600">Monthly Payment:</span>
+                        <span className="text-gray-600">Oylik to'lov:</span>
                         <span className="font-bold text-blue-600">
                           ${calculateMonthlyPayment().toLocaleString()}
                         </span>
                       </div>
                       <div className="flex justify-between mb-2">
-                        <span className="text-gray-600">Interest Rate:</span>
+                        <span className="text-gray-600">Oylik foiz stavkasi:</span>
                         <span className="font-medium">
                           {car.installmentDetails.interestRate}%
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-600">Total Interest:</span>
+                        <span className="text-gray-600">Umumiy foiz:</span>
                         <span className="font-medium">
                           ${(calculateMonthlyPayment() * selectedMonths - (carPrice - downPayment)).toLocaleString()}
                         </span>
@@ -322,13 +322,13 @@ const CarDetailsPage = () => {
                   onClick={handleOrderClick}
                   className="btn-primary flex-1"
                 >
-                  {car.isInstallmentAvailable ? 'Order with Installment' : 'Order Now'}
+                  {car.isInstallmentAvailable ? 'Bo\'lib to\'lash' : 'Buyurtma'}
                 </button>
                 <button
                   onClick={() => navigate('/cars')}
                   className="btn-outline flex-1"
                 >
-                  Back to Cars
+                  Mashinalarga qaytish
                 </button>
               </div>
             </div>

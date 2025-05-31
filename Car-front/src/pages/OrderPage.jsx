@@ -230,8 +230,8 @@ const OrderPage = () => {
                       )}
                     </span>
                     <div>
-                      <span className="font-medium">Full Payment</span>
-                      <p className="text-sm text-gray-600">Pay the full amount upfront</p>
+                      <span className="font-medium">To'liq to'lov</span>
+                      <p className="text-sm text-gray-600">To'liq miqdorni oldindan to'lash</p>
                     </div>
                   </label>
                   
@@ -258,8 +258,8 @@ const OrderPage = () => {
                       )}
                     </span>
                     <div>
-                      <span className="font-medium">Installment</span>
-                      <p className="text-sm text-gray-600">Pay in monthly installments</p>
+                      <span className="font-medium">Bo'lib to'lash</span>
+                      <p className="text-sm text-gray-600">Oylik bo'lib to'lash</p>
                     </div>
                   </label>
                 </div>
@@ -270,7 +270,7 @@ const OrderPage = () => {
                 <div className="space-y-4">
                   <div>
                     <label htmlFor="installmentMonths" className="form-label">
-                      Loan Term (Months)
+                      Kredit muddati (Oy)
                     </label>
                     <select
                       id="installmentMonths"
@@ -279,17 +279,17 @@ const OrderPage = () => {
                       onChange={handleChange}
                       className="form-control"
                     >
-                      <option value={12}>12 months</option>
-                      <option value={24}>24 months</option>
-                      <option value={36}>36 months</option>
-                      <option value={48}>48 months</option>
-                      <option value={60}>60 months</option>
+                      <option value={12}>12 oy</option>
+                      <option value={24}>24 oy</option>
+                      <option value={36}>36 oy</option>
+                      <option value={48}>48 oy</option>
+                      <option value={60}>60 oy</option>
                     </select>
                   </div>
                   
                   <div>
                     <label htmlFor="downPayment" className="form-label">
-                      Down Payment
+                      Asosiy to'lov
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -313,19 +313,19 @@ const OrderPage = () => {
                   
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <div className="flex justify-between mb-2">
-                      <span className="text-gray-600">Monthly Payment:</span>
+                      <span className="text-gray-600">Oylik to'lov:</span>
                       <span className="font-bold text-blue-600">
                         ${orderState?.monthlyPayment?.toLocaleString()}
                       </span>
                     </div>
                     <div className="flex justify-between mb-2">
-                      <span className="text-gray-600">Interest Rate:</span>
+                      <span className="text-gray-600">Oylik foiz stavkasi:</span>
                       <span className="font-medium">
                         {car.installmentDetails?.interestRate}%
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Total Interest:</span>
+                      <span className="text-gray-600">Umumiy foiz:</span>
                       <span className="font-medium">
                         ${(orderState?.monthlyPayment * formData.installmentMonths - (carPrice - formData.downPayment)).toLocaleString()}
                       </span>
@@ -336,7 +336,7 @@ const OrderPage = () => {
               
               {/* Payment Method */}
               <div>
-                <label className="form-label">Payment Method</label>
+                <label className="form-label">To'lov usuli</label>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {['payme', 'click', 'uzum'].map((method) => (
                     <label
@@ -373,7 +373,7 @@ const OrderPage = () => {
               {/* Comments */}
               <div>
                 <label htmlFor="comments" className="form-label">
-                  Additional Comments
+                  Qo\'shimcha izoh
                 </label>
                 <div className="relative">
                   <div className="absolute top-3 left-3 flex items-start pointer-events-none">
@@ -386,7 +386,7 @@ const OrderPage = () => {
                     onChange={handleChange}
                     rows={4}
                     className="form-control pl-10"
-                    placeholder="Any special requests or questions?"
+                    placeholder="Ixtiyoriy so'rovlar yoki savollar?"
                   />
                 </div>
               </div>
@@ -397,7 +397,7 @@ const OrderPage = () => {
                   type="submit"
                   className="btn-primary w-full"
                 >
-                  Proceed to Payment
+                  To'lovni amalga oshirish
                 </button>
               </div>
             </div>
@@ -413,9 +413,9 @@ const OrderPage = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="bg-white rounded-xl p-6 max-w-md w-full"
           >
-            <h2 className="text-2xl font-bold mb-4">Complete Payment</h2>
+            <h2 className="text-2xl font-bold mb-4">To'lovni amalga oshirish</h2>
             <p className="text-gray-600 mb-6">
-              You will be redirected to {formData.paymentMethod.toUpperCase()} to complete your payment of{' '}
+              Siz {formData.paymentMethod.toUpperCase()} ga o\'tib to\'lovni amalga oshirishingiz kerak.
               <span className="font-bold">${carPrice.toLocaleString()}</span>
             </p>
             <div className="flex gap-4">
@@ -424,7 +424,7 @@ const OrderPage = () => {
                 className="btn-outline flex-1"
                 disabled={isLoading}
               >
-                Cancel
+                Rad etish
               </button>
               <button
                 onClick={handlePayment}
@@ -440,7 +440,7 @@ const OrderPage = () => {
                     Processing...
                   </span>
                 ) : (
-                  'Confirm Payment'
+                  'To\'lovni tasdiqlash'
                 )}
               </button>
             </div>

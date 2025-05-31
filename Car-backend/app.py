@@ -8,19 +8,19 @@ import os
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Initialize extensions
+# Extensiyani boshlash
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
-# Create uploads directory if it doesn't exist
+# Agar mavjud bo'lmasa, yuklash uchun papkani yaratish
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
 
-# Import models
+# Modelni import qilish
 from models import User, Car, CarImage, Order, Installment, Payment
 
-# Register blueprints
+# Ro'yxatdan otish
 from routes.auth_routes import auth_bp
 from routes.car_routes import car_bp
 from routes.order_routes import order_bp

@@ -125,8 +125,8 @@ const TrendingCars = () => {
                       )}
                     </div>
                     <p className="text-gray-600 mb-6">
-                      Experience unparalleled luxury and performance with the {car.year} {car.name}. 
-                      This trending model combines cutting-edge technology with elegant design.
+                    {car.year} {car.name} bilan mislsiz hashamat va unumdorlikni his qiling. 
+                    Ushbu trendli model ilg'or texnologiyalarni oqlangan dizayn bilan birlashtiradi.
                     </p>
                     <Link 
                       to={`/cars/${car.id}`} 

@@ -23,7 +23,7 @@ const HeroBanner = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Start new car competitions with us!
+           Biz bilan yangi mashina tanlashni boshlang!
           </motion.h1>
           
           <motion.p 
@@ -32,7 +32,7 @@ const HeroBanner = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Experience luxury and performance with our premium selection of cars. Find your dream car with flexible payment options.
+            Bizning premium avtomobillar tanlovi bilan hashamat va unumdorlikni his eting. Moslashuvchan to'lov imkoniyatlari bilan orzuingizdagi mashinani toping.
           </motion.p>
           
           <motion.div 
@@ -45,13 +45,13 @@ const HeroBanner = () => {
               to="/cars" 
               className="btn-primary"
             >
-              Browse Cars
+              Mashinalar haqida
             </Link>
             <a 
               href="#trending" 
               className="btn-outline bg-transparent text-white border-white hover:bg-white/10"
             >
-              View Trending
+              Trending mashinalar
             </a>
           </motion.div>
         </div>

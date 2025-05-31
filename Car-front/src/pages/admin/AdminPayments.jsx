@@ -14,7 +14,7 @@ const AdminPayments = () => {
       customer: 'John Smith',
       car: 'Mercedes-Benz S-Class',
       amount: 120000,
-      type: 'Full Payment',
+      type: 'To\'liq to\'lov',
       method: 'Payme',
       status: 'completed',
       date: '2023-07-25',

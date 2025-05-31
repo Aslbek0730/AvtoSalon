@@ -13,23 +13,23 @@ const HomePage = () => {
   const features = [
     {
       icon: <Gauge className="h-10 w-10 text-blue-500" />,
-      title: 'Quality Vehicles',
-      description: 'All our cars undergo rigorous quality checks before being listed for sale.',
+      title: 'Sifatli mashinalar',
+      description: 'Hamma mashinalar bizning tayyorlash jarayoni orqali sifatli mashinalar bo\'ladi.',
     },
     {
       icon: <Award className="h-10 w-10 text-blue-500" />,
-      title: 'Best Prices',
-      description: 'We offer competitive pricing and special discounts on selected models.',
+      title: 'Eng yaxshi narxlar',
+      description: 'Biz tanlangan mashinalar uchun qiyinliklarni taklif etamiz.',
     },
     {
       icon: <Clock className="h-10 w-10 text-blue-500" />,
-      title: 'Flexible Payments',
-      description: 'Choose from various payment options including installment plans.',
+      title: 'Moslashuvchan to\'lov',
+      description: 'Turli to\'lov imkoniyatlari orasidan tanlang.',
     },
     {
       icon: <Shield className="h-10 w-10 text-blue-500" />,
-      title: 'Warranty Coverage',
-      description: 'All cars come with warranty for your peace of mind.',
+      title: 'Kafolat',
+      description: 'Hamma mashinalar kafolat bilan chiqariladi.',
     },
   ];
 
@@ -41,7 +41,7 @@ const HomePage = () => {
       {/* Why Choose Us */}
       <section className="section bg-blue-50">
         <div className="container-custom">
-          <h2 className="section-title">Why Choose AutoLuxe</h2>
+          <h2 className="section-title">Nimaga bizni tanlash kerak?</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
@@ -69,24 +69,24 @@ const HomePage = () => {
       {/* Testimonials */}
       <section className="section bg-gray-50">
         <div className="container-custom">
-          <h2 className="section-title">What Our Customers Say</h2>
+          <h2 className="section-title">Bizning mijozlar biz haqimizda nima deyishadi?</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                name: 'Sarah Johnson',
+                name: 'Anvar Narzullayev',
                 image: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                text: 'The installment plan offered by AutoLuxe made it possible for me to buy my dream car. The process was smooth and the staff was very helpful.',
+                text: 'Bizning AutoLuxe tayyorlash jarayoni bizning mashinani sotib olishimiz mumkin edi.',
               },
               {
-                name: 'Michael Chen',
+                name: 'Sherzod Qosimov',
                 image: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                text: 'I was impressed by the quality of cars and the professional service. Their online ordering system was convenient and easy to use.',
+                text: 'Bizning mashinani sotib olishimiz mumkin edi.',
               },
               {
-                name: 'Elena Petrova',
+                name: 'Madina Tursunova',
                 image: 'https://images.pexels.com/photos/762080/pexels-photo-762080.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                text: 'AutoLuxe offered the best price for my new Mercedes. The staff was knowledgeable and helped me choose the perfect car for my needs.',
+                text: 'Bizning AutoLuxe tayyorlash jarayoni bizning mashinani sotib olishimiz mumkin edi.',
               },
             ].map((testimonial, index) => (
               <motion.div
@@ -124,16 +124,16 @@ const HomePage = () => {
       {/* Call to Action */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div className="container-custom text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to find your dream car?</h2>
+          <h2 className="text-3xl font-bold mb-6">Yangi mashina topishga tayyormisiz?</h2>
           <p className="text-lg mb-8 max-w-2xl mx-auto">
-            Browse our extensive collection of premium vehicles and start your journey with AutoLuxe today.
+            Bizning premium mashinalar to\'plamiga qarang va biz bilan AutoLuxe yoshlashni boshlang.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a href="/cars" className="btn-secondary">
-              View Cars
+              Mashinalar
             </a>
             <a href="#contact" className="btn bg-white text-blue-700 hover:bg-gray-100">
-              Contact Us
+              Biz bilan bog\'lanish
             </a>
           </div>
         </div>
