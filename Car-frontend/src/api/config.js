@@ -4,31 +4,43 @@ const API_URL = process.env.NODE_ENV === 'production'
     ? 'https://car-salon-backend.onrender.com/api'  // Production backend URL
     : 'http://localhost:5000/api'; // Development backend URL
 
+console.log('Current API URL:', API_URL); // Debug URL
+
 const api = axios.create({
     baseURL: API_URL,
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json'
     }
 });
 
 // Request interceptor
 api.interceptors.request.use(
     (config) => {
-        // Token cookie orqali avtomatik yuboriladi
+        console.log('Making request to:', config.url); // Debug request
         return config;
     },
     (error) => {
+        console.error('Request error:', error);
         return Promise.reject(error);
     }
 );
 
 // Response interceptor
 api.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        console.log('Response received:', response.status); // Debug response
+        return response;
+    },
     (error) => {
+        console.error('Response error:', {
+            status: error.response?.status,
+            data: error.response?.data,
+            config: error.config
+        });
+        
         if (error.response?.status === 401) {
-            // Token muddati tugagan yoki noto'g'ri
             window.location.href = '/login';
         }
         return Promise.reject(error);
