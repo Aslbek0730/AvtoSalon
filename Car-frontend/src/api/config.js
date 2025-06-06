@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://car-salon-backend.onrender.com/api'  // Production backend URL
-    : 'http://localhost:5000/api'; // Development backend URL
+    ? 'https://car-salon-backend.onrender.com'  // Production backend URL
+    : 'http://localhost:5000'; // Development backend URL
 
 console.log('Current API URL:', API_URL); // Debug URL
 
@@ -37,7 +37,8 @@ api.interceptors.response.use(
         console.error('Response error:', {
             status: error.response?.status,
             data: error.response?.data,
-            config: error.config
+            config: error.config,
+            url: error.config?.url
         });
         
         if (error.response?.status === 401) {
