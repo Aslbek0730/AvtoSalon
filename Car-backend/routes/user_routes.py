@@ -87,3 +87,5 @@ def get_user(user_id):
         'email': user.email,
         'is_admin': user.is_admin
     })
+
+user_bp = bp

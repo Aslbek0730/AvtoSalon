@@ -26,9 +26,12 @@ class Car(db.Model):
     model = db.Column(db.String(50), nullable=False)
     year = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
+    discount_price = db.Column(db.Float)
     description = db.Column(db.Text)
     image_url = db.Column(db.String(200))
+    engine = db.Column(db.String(50))
     is_available = db.Column(db.Boolean, default=True)
+    is_installment_available = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     orders = db.relationship('Order', backref='car', lazy=True)

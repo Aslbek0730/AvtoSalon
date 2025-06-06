@@ -1,212 +1,127 @@
-// Dummy data for demo purposes
-const DUMMY_CARS = [
-  {
-    id: '1',
-    name: 'Mercedes-Benz S-Class',
-    brand: 'Mercedes-Benz',
-    price: 120000,
-    image: 'https://images.pexels.com/photos/120049/pexels-photo-120049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    year: 2023,
-    engine: '4.0L V8',
-    isInstallmentAvailable: true,
-    color: 'Black',
-    condition: 'New',
-    mileage: 0,
-    description: 'Butunlay yangi Mercedes-Benz S-Class bilan misli ko\'rilmagan hashamatni his eting. Ushbu flagman sedani eng yaxshi haydash tajribasi uchun ilg\'or texnologiyalarni nafis dizayn bilan birlashtiradi.',
-    installmentDetails: {
-      minMonths: 12,
-      maxMonths: 60,
-      interestRate: 5.9,
-    },
-  },
-  {
-    id: '2',
-    name: 'BMW 7 Series',
-    brand: 'BMW',
-    price: 110000,
-    image: 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    year: 2023,
-    engine: '3.0L I6',
-    isInstallmentAvailable: true,
-    color: 'White',
-    condition: 'New',
-    mileage: 0,
-    description: 'The BMW 7 Series redefines what it means to be a luxury sedan. With its bold design, luxurious interior, and advanced technology, it is the ultimate expression of BMW excellence.',
-    installmentDetails: {
-      minMonths: 12,
-      maxMonths: 60,
-      interestRate: 5.5,
-    },
-  },
-  {
-    id: '3',
-    name: 'Audi A8',
-    brand: 'Audi',
-    price: 115000,
-    image: 'https://images.pexels.com/photos/1035108/pexels-photo-1035108.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    year: 2022,
-    engine: '3.0L V6',
-    isInstallmentAvailable: true,
-    color: 'Silver',
-    condition: 'New',
-    mileage: 0,
-    description: 'Audi A8 - nafis dizaynni ilg\'or texnologiyalar bilan birlashtirgan hashamatli sedan. Ushbu flagman Audi modelida misli ko\'rilmagan qulaylik va unumdorlikni his eting.',
-    installmentDetails: {
-      minMonths: 12,
-      maxMonths: 60,
-      interestRate: 5.7,
-    },
-  },
-  {
-    id: '4',
-    name: 'Tesla Model 3',
-    brand: 'Tesla',
-    price: 45000,
-    discountPrice: 41999,
-    image: 'https://images.pexels.com/photos/13861/IMG_3496bfree.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    year: 2023,
-    engine: 'Electric',
-    isInstallmentAvailable: true,
-    color: 'Red',
-    condition: 'New',
-    mileage: 0,
-    description: 'The Tesla Model 3 is an all-electric sedan that combines performance, safety, and technology. With its sleek design and zero emissions, it is the perfect car for the eco-conscious driver.',
-    installmentDetails: {
-      minMonths: 12,
-      maxMonths: 60,
-      interestRate: 4.9,
-    },
-  },
-  {
-    id: '5',
-    name: 'Toyota Camry',
-    brand: 'Toyota',
-    price: 35000,
-    discountPrice: 32500,
-    image: 'https://images.pexels.com/photos/2036544/pexels-photo-2036544.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    year: 2022,
-    engine: '2.5L I4',
-    isInstallmentAvailable: true,
-    color: 'Blue',
-    condition: 'New',
-    mileage: 0,
-    description: 'The Toyota Camry combines reliability with style and comfort. This mid-size sedan offers excellent fuel efficiency, a spacious interior, and advanced safety features.',
-    installmentDetails: {
-      minMonths: 12,
-      maxMonths: 60,
-      interestRate: 4.5,
-    },
-  },
-  {
-    id: '6',
-    name: 'Honda Accord',
-    brand: 'Honda',
-    price: 33000,
-    discountPrice: 30750,
-    image: 'https://images.pexels.com/photos/1006087/pexels-photo-1006087.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    year: 2022,
-    engine: '1.5L I4',
-    isInstallmentAvailable: true,
-    color: 'Gray',
-    condition: 'New',
-    mileage: 0,
-    description: 'The Honda Accord is a mid-size sedan that offers a perfect balance of performance, comfort, and efficiency. With its sleek design and advanced features, it is a standout in its class.',
-    installmentDetails: {
-      minMonths: 12,
-      maxMonths: 60,
-      interestRate: 4.7,
-    },
-  },
-  {
-    id: '7',
-    name: 'Nissan Altima',
-    brand: 'Nissan',
-    price: 29500,
-    discountPrice: 27000,
-    image: 'https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    year: 2022,
-    engine: '2.0L I4',
-    isInstallmentAvailable: false,
-    color: 'Black',
-    condition: 'New',
-    mileage: 0,
-    description: 'Nissan Altima hamyonbop narxda yuqori darajadagi haydash tajribasini taklif etadi. O\'zining qulay ichki qismi, yoqilg\'i tejamkor dvigateli va ilg\'or xavfsizlik xususiyatlari bilan u kundalik haydash uchun juda mos keladi.',
-    installmentDetails: null,
-  },
-  {
-    id: '8',
-    name: 'Lexus ES',
-    brand: 'Lexus',
-    price: 42000,
-    image: 'https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    year: 2022,
-    engine: '3.5L V6',
-    isInstallmentAvailable: true,
-    color: 'White',
-    condition: 'New',
-    mileage: 0,
-    description: 'The Lexus ES is a luxury sedan that offers a perfect blend of comfort, performance, and style. With its premium materials and advanced technology, it delivers a first-class driving experience.',
-    installmentDetails: {
-      minMonths: 12,
-      maxMonths: 60,
-      interestRate: 5.2,
-    },
-  },
-  {
-    id: '9',
-    name: 'Chevrolet Malibu',
-    brand: 'Chevrolet',
-    price: 28000,
-    image: 'https://images.pexels.com/photos/707046/pexels-photo-707046.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    year: 2021,
-    engine: '1.5L I4',
-    isInstallmentAvailable: false,
-    color: 'Silver',
-    condition: 'New',
-    mileage: 0,
-    description: 'The Chevrolet Malibu is a mid-size sedan that combines style, efficiency, and technology. With its comfortable ride and modern features, it is an excellent choice for daily commuting.',
-    installmentDetails: null,
-  },
-];
+import axios from 'axios';
+
+const API_URL = 'http://localhost:5000/api';
 
 // Get all cars with optional filtering
 export const getCars = async (filters) => {
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  let cars = [...DUMMY_CARS];
-  
-  if (filters) {
-    // Apply filters
-    if (filters.priceRange) {
-      cars = cars.filter(
-        car => car.price >= filters.priceRange[0] && car.price <= filters.priceRange[1]
-      );
+  try {
+    const params = new URLSearchParams();
+    
+    if (filters) {
+      if (filters.priceRange) {
+        params.append('min_price', filters.priceRange[0]);
+        params.append('max_price', filters.priceRange[1]);
+      }
+      
+      if (filters.brands && filters.brands.length > 0) {
+        params.append('brand', filters.brands[0]); // Backend currently supports single brand filter
+      }
+      
+      if (filters.years && filters.years.length > 0) {
+        params.append('min_year', Math.min(...filters.years));
+        params.append('max_year', Math.max(...filters.years));
+      }
+      
+      if (filters.installmentOnly) {
+        params.append('installment', 'true');
+      }
     }
     
-    if (filters.brands && filters.brands.length > 0) {
-      cars = cars.filter(car => filters.brands.includes(car.brand || ''));
-    }
-    
-    if (filters.years && filters.years.length > 0) {
-      cars = cars.filter(car => filters.years.includes(car.year));
-    }
-    
-    if (filters.installmentOnly) {
-      cars = cars.filter(car => car.isInstallmentAvailable);
-    }
+    const response = await axios.get(`${API_URL}/cars?${params.toString()}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching cars:', error);
+    throw error;
   }
-  
-  return cars;
 };
 
 // Get a single car by ID
 export const getCarById = async (id) => {
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 500));
-  
-  const car = DUMMY_CARS.find(car => car.id === id);
-  return car || null;
+  try {
+    const response = await axios.get(`${API_URL}/cars/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching car:', error);
+    throw error;
+  }
+};
+
+// Get all brands
+export const getBrands = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/cars/brands`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching brands:', error);
+    throw error;
+  }
+};
+
+// Add car (for admin)
+export const addCar = async (carData) => {
+  try {
+    const formData = new FormData();
+    
+    // Append all car data to formData
+    Object.keys(carData).forEach(key => {
+      if (key === 'image' && carData[key]) {
+        formData.append('image', carData[key]);
+      } else {
+        formData.append(key, carData[key]);
+      }
+    });
+    
+    const response = await axios.post(`${API_URL}/cars`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      withCredentials: true
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error adding car:', error);
+    throw error;
+  }
+};
+
+// Update car (for admin)
+export const updateCar = async (id, carData) => {
+  try {
+    const formData = new FormData();
+    
+    // Append all car data to formData
+    Object.keys(carData).forEach(key => {
+      if (key === 'image' && carData[key]) {
+        formData.append('image', carData[key]);
+      } else {
+        formData.append(key, carData[key]);
+      }
+    });
+    
+    const response = await axios.put(`${API_URL}/cars/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      withCredentials: true
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating car:', error);
+    throw error;
+  }
+};
+
+// Delete car (for admin)
+export const deleteCar = async (id) => {
+  try {
+    const response = await axios.delete(`${API_URL}/cars/${id}`, {
+      withCredentials: true
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting car:', error);
+    throw error;
+  }
 };
 
 // Get trending cars
@@ -225,47 +140,4 @@ export const getDiscountedCars = async () => {
   
   // Return cars with discountPrice
   return DUMMY_CARS.filter(car => car.discountPrice);
-};
-
-// Add car (for admin)
-export const addCar = async (car) => {
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  const newCar = {
-    ...car,
-    id: `${DUMMY_CARS.length + 1}`,
-  };
-  
-  DUMMY_CARS.push(newCar);
-  return newCar;
-};
-
-// Update car (for admin)
-export const updateCar = async (id, car) => {
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  const index = DUMMY_CARS.findIndex(c => c.id === id);
-  if (index === -1) return null;
-  
-  const updatedCar = {
-    ...DUMMY_CARS[index],
-    ...car,
-  };
-  
-  DUMMY_CARS[index] = updatedCar;
-  return updatedCar;
-};
-
-// Delete car (for admin)
-export const deleteCar = async (id) => {
-  // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  const index = DUMMY_CARS.findIndex(car => car.id === id);
-  if (index === -1) return false;
-  
-  DUMMY_CARS.splice(index, 1);
-  return true;
 }; 
