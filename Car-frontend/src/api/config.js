@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'http://localhost:5000/api'  // Production backend URL
+    ? 'https://car-salon-backend.onrender.com/api'  // Production backend URL
     : 'http://localhost:5000/api'; // Development backend URL
 
 const api = axios.create({
