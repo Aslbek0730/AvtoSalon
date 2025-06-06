@@ -12,7 +12,14 @@ def create_app():
     app = Flask(__name__)
     
     # Configure CORS
-    CORS(app, supports_credentials=True, origins=['http://localhost:3000'])
+    CORS(app, 
+         supports_credentials=True, 
+         origins=['https://car-salon-eosin.vercel.app', 'http://localhost:3000'],
+         allow_headers=['Content-Type', 'Authorization', 'Accept'],
+         expose_headers=['Content-Type', 'Authorization'],
+         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+         max_age=3600,
+         send_wildcard=False)
     
     # Configure database
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cars.db'
@@ -41,4 +48,4 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)

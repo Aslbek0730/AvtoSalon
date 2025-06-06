@@ -77,6 +77,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const isAdmin = () => {
+    return user && (user.role === 'admin' || user.is_admin);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -89,7 +93,8 @@ export const AuthProvider = ({ children }) => {
       register, 
       logout,
       error,
-      setError 
+      setError,
+      isAdmin
     }}>
       {children}
     </AuthContext.Provider>
